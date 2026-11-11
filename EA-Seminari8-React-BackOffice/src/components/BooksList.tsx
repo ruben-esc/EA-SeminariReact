@@ -14,6 +14,8 @@ import { ConfirmModal } from './ConfirmModal';
 import { Pagination } from './Pagination';
 import { ViewToggle } from './ViewToggle';
 
+import { FavouriteButton } from './FavouriteButton';
+
 // Libros que se ven en cada página de la tabla
 const PAGE_SIZE = 4;
 
@@ -101,6 +103,7 @@ export function BooksList() {
               <thead>
                 <tr>
                   <th></th>
+                  <th>Favoritos</th>
                   <th>Título</th>
                   <th>Descripción</th>
                   <th>Autores</th>
@@ -120,6 +123,9 @@ export function BooksList() {
                         src={`https://picsum.photos/seed/${book._id}/60/80`}
                         alt={`Portada de ${book.title}`}
                       />
+                    </td>
+                    <td>
+                      <FavouriteButton book={book} />
                     </td>
                     <td>{book.title}</td>
                     <td title={book.description ?? ''}>
@@ -149,7 +155,7 @@ export function BooksList() {
                 ))}
                 {pageItems.length === 0 && (
                   <tr>
-                    <td className="empty" colSpan={9}>
+                    <td className="empty" colSpan={10}>
                       {emptyText}
                     </td>
                   </tr>
@@ -188,6 +194,7 @@ export function BooksList() {
                     </div>
                   </div>
                   <div className="card-actions">
+                    <FavouriteButton book={book} />
                     <Link className="button secondary" to={`/books/${book._id}/edit`}>
                       Editar
                     </Link>
